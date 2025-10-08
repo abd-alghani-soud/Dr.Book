@@ -1,9 +1,10 @@
 import 'package:bookly_app/core/constants/assets.dart';
-import 'package:bookly_app/features/splash_intro/view/presentation/pages/onboarding_page.dart';
+import 'package:bookly_app/features/splash_intro/presentation/view/pages/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SplashPageBody extends StatelessWidget {
   const SplashPageBody({super.key});
@@ -19,10 +20,8 @@ class SplashPageBody extends StatelessWidget {
               .animate(
                 onComplete: (controller) {
                   controller.repeat(count: 2).then((v) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => OnboardingPage()),
-                    );
+                    Get.off(() => const OnboardingPage());
+                    // Get.offAll(() => const OnboardingPage());
                   });
                 },
               )
