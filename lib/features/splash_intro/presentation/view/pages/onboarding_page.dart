@@ -1,4 +1,5 @@
-import 'package:bookly_app/features/home/home.dart';
+import 'package:bookly_app/core/constants/strings.dart';
+import 'package:bookly_app/features/home/presentation/view/pages/home_page.dart';
 import 'package:bookly_app/features/splash_intro/data/models/onboarding_model.dart';
 import 'package:bookly_app/features/splash_intro/presentation/view/widgets/bottom_controls.dart';
 import 'package:bookly_app/features/splash_intro/presentation/view/widgets/onboard_page_content.dart';
@@ -55,7 +56,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void _finishOnboarding() {
-    Get.offAll(() => const Home());
+    Get.offAll(
+      () => const HomePage(),
+      transition: Transition.fadeIn,
+      duration: Strings.kTransitionDuration,
+    );
   }
 
   @override

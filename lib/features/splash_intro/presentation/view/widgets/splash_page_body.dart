@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/constants/assets.dart';
+import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/features/splash_intro/presentation/view/pages/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -20,7 +21,11 @@ class SplashPageBody extends StatelessWidget {
               .animate(
                 onComplete: (controller) {
                   controller.repeat(count: 2).then((v) {
-                    Get.off(() => const OnboardingPage());
+                    Get.off(
+                      () => const OnboardingPage(),
+                      transition: Transition.fade,
+                      duration: Strings.kTransitionDuration,
+                    );
                     // Get.offAll(() => const OnboardingPage());
                   });
                 },
