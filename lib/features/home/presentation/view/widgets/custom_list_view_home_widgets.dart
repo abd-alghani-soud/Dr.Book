@@ -8,7 +8,7 @@ class CustomListViewHomeWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350.h,
+      height: 250.h,
       child: ListView.builder(
         itemCount: 4,
         scrollDirection: Axis.horizontal,

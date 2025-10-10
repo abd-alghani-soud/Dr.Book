@@ -16,10 +16,16 @@ class HomeBodyWidget extends StatelessWidget {
         bottom: 20.h,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomAppBarHomeWidget(),
           SizedBox(height: 28.h),
           CustomListViewHomeWidgets(),
+          SizedBox(height: 48.h),
+          Text(
+            'Best Seller',
+            style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w600),
+          ),
         ],
       ),
     );
