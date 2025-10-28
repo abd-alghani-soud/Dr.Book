@@ -1,8 +1,9 @@
 import 'package:bookly_app/core/constants/assets.dart';
+import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/core/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:bookly_app/core/constants/strings.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BestSellerItemWidgets extends StatelessWidget {
@@ -20,7 +21,7 @@ class BestSellerItemWidgets extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.sp),
                 image: DecorationImage(
-                  image: const AssetImage(Assets.onboarding1),
+                  image: AssetImage(Assets.onboarding1),
                   fit: BoxFit.fill,
                 ),
               ),

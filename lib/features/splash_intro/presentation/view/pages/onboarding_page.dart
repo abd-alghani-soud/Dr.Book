@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/constants/assets.dart';
 import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/features/home/presentation/view/pages/home_page.dart';
 import 'package:bookly_app/features/splash_intro/data/models/onboarding_model.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../../core/constants/assets.dart';
+
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
