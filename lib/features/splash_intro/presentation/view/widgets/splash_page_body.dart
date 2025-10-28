@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashPageBody extends StatelessWidget {
   const SplashPageBody({super.key});
@@ -21,11 +22,12 @@ class SplashPageBody extends StatelessWidget {
               .animate(
                 onComplete: (controller) {
                   controller.repeat(count: 2).then((v) {
-                    Get.off(
-                      () => const OnboardingPage(),
-                      transition: Transition.fade,
-                      duration: Strings.kTransitionDuration,
-                    );
+                    GoRouter.of(context).push('/onboardingPage');
+                    // Get.off(
+                    //   () => const OnboardingPage(),
+                    //   transition: Transition.fade,
+                    //   duration: Strings.kTransitionDuration,
+                    // );
                     // Get.offAll(() => const OnboardingPage());
                   });
                 },
