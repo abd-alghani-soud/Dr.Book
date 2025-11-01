@@ -1,6 +1,7 @@
 import 'package:bookly_app/core/constants/assets.dart';
 import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/core/utils/style.dart';
+import 'package:bookly_app/features/home/presentation/view/widgets/book_rating_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -51,34 +52,18 @@ class BestSellerItemWidgets extends StatelessWidget {
                   const SizedBox(height: 3),
                   const Text('J.K.Rowling', style: Style.textSize16),
                   const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      Text(
-                        r'19.99 $',
-                        style: Style.textSize18.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const Spacer(flex: 1),
-                      Row(
-                        children: [
-                          Icon(
-                            FontAwesomeIcons.solidStar,
-                            color: Color(0xffFFDD4F),
-                          ),
-                          const SizedBox(width: 6.5),
-                          const Text('4.8', style: Style.textSize18),
-                          const SizedBox(width: 5),
-                          Text(
-                            '(1435)',
-                            style: Style.textSize16.copyWith(
-                              color: const Color(0xff707070),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+              Row(
+                children: [
+                  Text(
+                    r'19.99 $',
+                    style: Style.textSize18.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  const Spacer(flex: 1),
+                BookRatingWidget(),
+                ],
+              ),
                 ],
               ),
             ),
