@@ -19,15 +19,18 @@ class MyApp extends StatelessWidget {
         return fontSize.toDouble();
       },
       designSize: const Size(414, 930),
-      child: MaterialApp.router(
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Strings.kBackground,
-          textTheme: GoogleFonts.montserratTextTheme(
-            ThemeData.dark().textTheme,
+      child: SafeArea(
+        top: false,
+        child: MaterialApp.router(
+          theme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: Strings.kBackground,
+            textTheme: GoogleFonts.montserratTextTheme(
+              ThemeData.dark().textTheme,
+            ),
           ),
+          debugShowCheckedModeBanner: false,
+          routerConfig: AppRouter.router,
         ),
-        debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.router,
       ),
     );
   }
