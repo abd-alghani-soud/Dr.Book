@@ -15,7 +15,8 @@ class BookRepoImp implements BookRepo {
   Future<Either<Failure, List<BookModel>>> getAllBooks() async {
     try {
       final result = await data.get(
-        endPoints: '/volumes?Filtering=free-ebooks&Sorting=newest',
+        endPoints:
+            '/volumes?Filtering=free-ebooks&Sorting=newest&q=subject:programming',
       );
       final List<BookModel> book = [];
       for (var e in result['items']) {
@@ -32,8 +33,22 @@ class BookRepoImp implements BookRepo {
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> getBestSellerBooks() {
-    // TODO: implement getBestSellerBooks
-    throw UnimplementedError();
+  Future<Either<Failure, List<BookModel>>> getBestSellerBooks() async {
+    try {
+      final result = await data.get(
+        endPoints: '/volumes?Filtering=free-ebooks&q=subject:programming',
+      );
+      final List<BookModel> book = [];
+      for (var e in result['items']) {
+        book.add(BookModel.fromJson(e));
+      }
+      return right(book);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
   }
 }

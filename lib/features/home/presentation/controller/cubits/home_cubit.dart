@@ -1,0 +1,59 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bookly_app/core/utils/request_status.dart';
+import 'package:bookly_app/features/home/data/model/book_model.dart';
+import 'package:bookly_app/features/home/data/repository/book_repo.dart';
+import 'package:equatable/equatable.dart';
+
+part 'home_state.dart';
+
+class HomeCubit extends Cubit<HomeState> {
+  HomeCubit(this.repo) : super(HomeState());
+
+  final BookRepo repo;
+
+  Future<void> getAllBooks() async {
+    emit(state.copyWith(getAllBooksState: RequestStatus.loading));
+    final result = await repo.getAllBooks();
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            getAllBooksState: RequestStatus.failed,
+            errorMessage: failure.message,
+          ),
+        );
+      },
+      (books) {
+        emit(
+          state.copyWith(
+            getAllBooksState: RequestStatus.success,
+            getAllBooks: books,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> getBestSellerBooks() async {
+    emit(state.copyWith(getBestSellerState: RequestStatus.loading));
+    final result = await repo.getBestSellerBooks();
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            getBestSellerState: RequestStatus.failed,
+            errorMessage: failure.message,
+          ),
+        );
+      },
+      (books) {
+        emit(
+          state.copyWith(
+            getBestSellerState: RequestStatus.success,
+            getBestSellerBooks: books,
+          ),
+        );
+      },
+    );
+  }
+}
