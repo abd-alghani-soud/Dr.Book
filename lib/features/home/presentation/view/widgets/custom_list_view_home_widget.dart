@@ -20,12 +20,19 @@ class CustomListViewHomeWidgets extends StatelessWidget {
           return SizedBox(
             height: 250.h,
             child: ListView.builder(
-              itemCount: 4,
+              physics: const BouncingScrollPhysics(),
+              itemCount: state.getAllBooks.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CardItemListViewHomeWidget(),
+                  child: CardItemListViewHomeWidget(
+                    imageUrl: state
+                        .getAllBooks[index]
+                        .volumeInfo
+                        .imageLinks
+                        .thumbnail,
+                  ),
                 );
               },
             ),

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class CardItemListViewHomeWidget extends StatelessWidget {
-  const CardItemListViewHomeWidget({super.key});
-
+  const CardItemListViewHomeWidget({super.key, required this.imageUrl});
+final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -18,7 +18,7 @@ class CardItemListViewHomeWidget extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14.sp),
             image: DecorationImage(
-              image: AssetImage(Assets.onboarding1),
+              image: NetworkImage(imageUrl),
               fit: BoxFit.fill,
             ),
           ),
