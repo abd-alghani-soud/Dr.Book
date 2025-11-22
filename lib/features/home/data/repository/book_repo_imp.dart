@@ -1,11 +1,12 @@
-import 'package:bookly_app/core/error/exceptions.dart';
 import 'package:bookly_app/core/error/failures.dart';
 import 'package:bookly_app/core/services/api_service.dart';
 import 'package:bookly_app/features/home/data/model/book_model.dart';
 import 'package:bookly_app/features/home/data/repository/book_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: BookRepo)
 class BookRepoImp implements BookRepo {
   final ApiService data;
 
@@ -16,7 +17,7 @@ class BookRepoImp implements BookRepo {
     try {
       final result = await data.get(
         endPoints:
-            '/volumes?Filtering=free-ebooks&Sorting=newest&q=subject:programming',
+            'volumes?Filtering=free-ebooks&Sorting=newest&q=subject:programming',
       );
       final List<BookModel> book = [];
       for (var e in result['items']) {

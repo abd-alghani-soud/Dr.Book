@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 BookModel bookModelFromJson(String str) => BookModel.fromJson(json.decode(str));
-
 String bookModelToJson(BookModel data) => json.encode(data.toJson());
 
 class BookModel {
@@ -26,14 +25,14 @@ class BookModel {
   String selfLink;
 
   factory BookModel.fromJson(Map<dynamic, dynamic> json) => BookModel(
-    saleInfo: SaleInfo.fromJson(json["saleInfo"]),
-    searchInfo: SearchInfo.fromJson(json["searchInfo"]),
-    kind: json["kind"],
-    volumeInfo: VolumeInfo.fromJson(json["volumeInfo"]),
-    etag: json["etag"],
-    id: json["id"],
-    accessInfo: AccessInfo.fromJson(json["accessInfo"]),
-    selfLink: json["selfLink"],
+    saleInfo: SaleInfo.fromJson(json["saleInfo"] ?? {}),
+    searchInfo: SearchInfo.fromJson(json["searchInfo"] ?? {}),
+    kind: json["kind"] ?? '',
+    volumeInfo: VolumeInfo.fromJson(json["volumeInfo"] ?? {}),
+    etag: json["etag"] ?? '',
+    id: json["id"] ?? '',
+    accessInfo: AccessInfo.fromJson(json["accessInfo"] ?? {}),
+    selfLink: json["selfLink"] ?? '',
   );
 
   Map<dynamic, dynamic> toJson() => {
@@ -50,17 +49,18 @@ class BookModel {
 
 class AccessInfo {
   AccessInfo({
-    required this.accessViewStatus,
-    required this.country,
-    required this.viewability,
-    required this.pdf,
-    required this.webReaderLink,
-    required this.epub,
-    required this.publicDomain,
-    required this.quoteSharingAllowed,
-    required this.embeddable,
-    required this.textToSpeechPermission,
-  });
+    this.accessViewStatus = '',
+    this.country = '',
+    this.viewability = '',
+    Pdf? pdf,
+    this.webReaderLink = '',
+    Epub? epub,
+    this.publicDomain = false,
+    this.quoteSharingAllowed = false,
+    this.embeddable = false,
+    this.textToSpeechPermission = '',
+  })  : pdf = pdf ?? Pdf(),
+        epub = epub ?? Epub();
 
   String accessViewStatus;
   String country;
@@ -74,16 +74,16 @@ class AccessInfo {
   String textToSpeechPermission;
 
   factory AccessInfo.fromJson(Map<dynamic, dynamic> json) => AccessInfo(
-    accessViewStatus: json["accessViewStatus"],
-    country: json["country"],
-    viewability: json["viewability"],
-    pdf: Pdf.fromJson(json["pdf"]),
-    webReaderLink: json["webReaderLink"],
-    epub: Epub.fromJson(json["epub"]),
-    publicDomain: json["publicDomain"],
-    quoteSharingAllowed: json["quoteSharingAllowed"],
-    embeddable: json["embeddable"],
-    textToSpeechPermission: json["textToSpeechPermission"],
+    accessViewStatus: json["accessViewStatus"] ?? '',
+    country: json["country"] ?? '',
+    viewability: json["viewability"] ?? '',
+    pdf: Pdf.fromJson(json["pdf"] ?? {}),
+    webReaderLink: json["webReaderLink"] ?? '',
+    epub: Epub.fromJson(json["epub"] ?? {}),
+    publicDomain: json["publicDomain"] ?? false,
+    quoteSharingAllowed: json["quoteSharingAllowed"] ?? false,
+    embeddable: json["embeddable"] ?? false,
+    textToSpeechPermission: json["textToSpeechPermission"] ?? '',
   );
 
   Map<dynamic, dynamic> toJson() => {
@@ -101,25 +101,20 @@ class AccessInfo {
 }
 
 class Epub {
-  Epub({required this.isAvailable});
-
+  Epub({this.isAvailable = false});
   bool isAvailable;
-
-  factory Epub.fromJson(Map<dynamic, dynamic> json) =>
-      Epub(isAvailable: json["isAvailable"]);
-
+  factory Epub.fromJson(Map<dynamic, dynamic> json) => Epub(isAvailable: json["isAvailable"] ?? false);
   Map<dynamic, dynamic> toJson() => {"isAvailable": isAvailable};
 }
 
 class Pdf {
-  Pdf({required this.isAvailable, required this.acsTokenLink});
-
+  Pdf({this.isAvailable = false, this.acsTokenLink = ''});
   bool isAvailable;
   String acsTokenLink;
-
-  factory Pdf.fromJson(Map<dynamic, dynamic> json) =>
-      Pdf(isAvailable: json["isAvailable"], acsTokenLink: json["acsTokenLink"]);
-
+  factory Pdf.fromJson(Map<dynamic, dynamic> json) => Pdf(
+    isAvailable: json["isAvailable"] ?? false,
+    acsTokenLink: json["acsTokenLink"] ?? '',
+  );
   Map<dynamic, dynamic> toJson() => {
     "isAvailable": isAvailable,
     "acsTokenLink": acsTokenLink,
@@ -128,21 +123,18 @@ class Pdf {
 
 class SaleInfo {
   SaleInfo({
-    required this.country,
-    required this.isEbook,
-    required this.saleability,
+    this.country = '',
+    this.isEbook = false,
+    this.saleability = '',
   });
-
   String country;
   bool isEbook;
   String saleability;
-
   factory SaleInfo.fromJson(Map<dynamic, dynamic> json) => SaleInfo(
-    country: json["country"],
-    isEbook: json["isEbook"],
-    saleability: json["saleability"],
+    country: json["country"] ?? '',
+    isEbook: json["isEbook"] ?? false,
+    saleability: json["saleability"] ?? '',
   );
-
   Map<dynamic, dynamic> toJson() => {
     "country": country,
     "isEbook": isEbook,
@@ -151,38 +143,41 @@ class SaleInfo {
 }
 
 class SearchInfo {
-  SearchInfo({required this.textSnippet});
-
+  SearchInfo({this.textSnippet = ''});
   String textSnippet;
-
-  factory SearchInfo.fromJson(Map<dynamic, dynamic> json) =>
-      SearchInfo(textSnippet: json["textSnippet"]);
-
+  factory SearchInfo.fromJson(Map<dynamic, dynamic> json) => SearchInfo(
+    textSnippet: json["textSnippet"] ?? '',
+  );
   Map<dynamic, dynamic> toJson() => {"textSnippet": textSnippet};
 }
 
 class VolumeInfo {
   VolumeInfo({
-    required this.industryIdentifiers,
-    required this.pageCount,
-    required this.printType,
-    required this.readingModes,
-    required this.previewLink,
-    required this.canonicalVolumeLink,
-    required this.description,
-    required this.language,
-    required this.title,
-    required this.imageLinks,
-    required this.panelizationSummary,
-    required this.publisher,
-    required this.publishedDate,
-    required this.categories,
-    required this.maturityRating,
-    required this.allowAnonLogging,
-    required this.contentVersion,
-    required this.authors,
-    required this.infoLink,
-  });
+    List<IndustryIdentifier>? industryIdentifiers,
+    this.pageCount = 0,
+    this.printType = '',
+    ReadingModes? readingModes,
+    this.previewLink = '',
+    this.canonicalVolumeLink = '',
+    this.description = '',
+    this.language = '',
+    this.title = '',
+    ImageLinks? imageLinks,
+    PanelizationSummary? panelizationSummary,
+    this.publisher = '',
+    this.publishedDate = '',
+    List<String>? categories,
+    this.maturityRating = '',
+    this.allowAnonLogging = false,
+    this.contentVersion = '',
+    List<String>? authors,
+    this.infoLink = '',
+  })  : industryIdentifiers = industryIdentifiers ?? [],
+        readingModes = readingModes ?? ReadingModes(),
+        imageLinks = imageLinks ?? ImageLinks(),
+        panelizationSummary = panelizationSummary ?? PanelizationSummary(),
+        categories = categories ?? [],
+        authors = authors ?? [];
 
   List<IndustryIdentifier> industryIdentifiers;
   int pageCount;
@@ -205,35 +200,33 @@ class VolumeInfo {
   String infoLink;
 
   factory VolumeInfo.fromJson(Map<dynamic, dynamic> json) => VolumeInfo(
-    industryIdentifiers: List<IndustryIdentifier>.from(
-      json["industryIdentifiers"].map((x) => IndustryIdentifier.fromJson(x)),
-    ),
-    pageCount: json["pageCount"],
-    printType: json["printType"],
-    readingModes: ReadingModes.fromJson(json["readingModes"]),
-    previewLink: json["previewLink"],
-    canonicalVolumeLink: json["canonicalVolumeLink"],
-    description: json["description"],
-    language: json["language"],
-    title: json["title"],
-    imageLinks: ImageLinks.fromJson(json["imageLinks"]),
-    panelizationSummary: PanelizationSummary.fromJson(
-      json["panelizationSummary"],
-    ),
-    publisher: json["publisher"],
-    publishedDate: json["publishedDate"],
-    categories: List<String>.from(json["categories"].map((x) => x)),
-    maturityRating: json["maturityRating"],
-    allowAnonLogging: json["allowAnonLogging"],
-    contentVersion: json["contentVersion"],
-    authors: List<String>.from(json["authors"].map((x) => x)),
-    infoLink: json["infoLink"],
+    industryIdentifiers: (json["industryIdentifiers"] as List?)
+        ?.map((x) => IndustryIdentifier.fromJson(x))
+        .toList() ??
+        [],
+    pageCount: json["pageCount"] ?? 0,
+    printType: json["printType"] ?? '',
+    readingModes: ReadingModes.fromJson(json["readingModes"] ?? {}),
+    previewLink: json["previewLink"] ?? '',
+    canonicalVolumeLink: json["canonicalVolumeLink"] ?? '',
+    description: json["description"] ?? '',
+    language: json["language"] ?? '',
+    title: json["title"] ?? '',
+    imageLinks: ImageLinks.fromJson(json["imageLinks"] ?? {}),
+    panelizationSummary:
+    PanelizationSummary.fromJson(json["panelizationSummary"] ?? {}),
+    publisher: json["publisher"] ?? '',
+    publishedDate: json["publishedDate"] ?? '',
+    categories: (json["categories"] as List?)?.map((x) => x.toString()).toList() ?? [],
+    maturityRating: json["maturityRating"] ?? '',
+    allowAnonLogging: json["allowAnonLogging"] ?? false,
+    contentVersion: json["contentVersion"] ?? '',
+    authors: (json["authors"] as List?)?.map((x) => x.toString()).toList() ?? [],
+    infoLink: json["infoLink"] ?? '',
   );
 
   Map<dynamic, dynamic> toJson() => {
-    "industryIdentifiers": List<dynamic>.from(
-      industryIdentifiers.map((x) => x.toJson()),
-    ),
+    "industryIdentifiers": industryIdentifiers.map((x) => x.toJson()).toList(),
     "pageCount": pageCount,
     "printType": printType,
     "readingModes": readingModes.toJson(),
@@ -246,58 +239,45 @@ class VolumeInfo {
     "panelizationSummary": panelizationSummary.toJson(),
     "publisher": publisher,
     "publishedDate": publishedDate,
-    "categories": List<dynamic>.from(categories.map((x) => x)),
+    "categories": categories,
     "maturityRating": maturityRating,
     "allowAnonLogging": allowAnonLogging,
     "contentVersion": contentVersion,
-    "authors": List<dynamic>.from(authors.map((x) => x)),
+    "authors": authors,
     "infoLink": infoLink,
   };
 }
 
 class ImageLinks {
-  ImageLinks({required this.thumbnail, required this.smallThumbnail});
-
+  ImageLinks({this.thumbnail = '', this.smallThumbnail = ''});
   String thumbnail;
   String smallThumbnail;
-
   factory ImageLinks.fromJson(Map<dynamic, dynamic> json) => ImageLinks(
-    thumbnail: json["thumbnail"],
-    smallThumbnail: json["smallThumbnail"],
+    thumbnail: json["thumbnail"] ?? '',
+    smallThumbnail: json["smallThumbnail"] ?? '',
   );
-
-  Map<dynamic, dynamic> toJson() => {
-    "thumbnail": thumbnail,
-    "smallThumbnail": smallThumbnail,
-  };
+  Map<dynamic, dynamic> toJson() => {"thumbnail": thumbnail, "smallThumbnail": smallThumbnail};
 }
 
 class IndustryIdentifier {
-  IndustryIdentifier({required this.identifier, required this.type});
+  IndustryIdentifier({this.identifier = '', this.type = ''});
   String identifier;
   String type;
-
-  factory IndustryIdentifier.fromJson(Map<dynamic, dynamic> json) =>
-      IndustryIdentifier(identifier: json["identifier"], type: json["type"]);
-
+  factory IndustryIdentifier.fromJson(Map<dynamic, dynamic> json) => IndustryIdentifier(
+    identifier: json["identifier"] ?? '',
+    type: json["type"] ?? '',
+  );
   Map<dynamic, dynamic> toJson() => {"identifier": identifier, "type": type};
 }
 
 class PanelizationSummary {
-  PanelizationSummary({
-    required this.containsImageBubbles,
-    required this.containsEpubBubbles,
-  });
-
+  PanelizationSummary({this.containsImageBubbles = false, this.containsEpubBubbles = false});
   bool containsImageBubbles;
   bool containsEpubBubbles;
-
-  factory PanelizationSummary.fromJson(Map<dynamic, dynamic> json) =>
-      PanelizationSummary(
-        containsImageBubbles: json["containsImageBubbles"],
-        containsEpubBubbles: json["containsEpubBubbles"],
-      );
-
+  factory PanelizationSummary.fromJson(Map<dynamic, dynamic> json) => PanelizationSummary(
+    containsImageBubbles: json["containsImageBubbles"] ?? false,
+    containsEpubBubbles: json["containsEpubBubbles"] ?? false,
+  );
   Map<dynamic, dynamic> toJson() => {
     "containsImageBubbles": containsImageBubbles,
     "containsEpubBubbles": containsEpubBubbles,
@@ -305,13 +285,12 @@ class PanelizationSummary {
 }
 
 class ReadingModes {
-  ReadingModes({required this.image, required this.text});
-
+  ReadingModes({this.image = false, this.text = false});
   bool image;
   bool text;
-
-  factory ReadingModes.fromJson(Map<dynamic, dynamic> json) =>
-      ReadingModes(image: json["image"], text: json["text"]);
-
+  factory ReadingModes.fromJson(Map<dynamic, dynamic> json) => ReadingModes(
+    image: json["image"] ?? false,
+    text: json["text"] ?? false,
+  );
   Map<dynamic, dynamic> toJson() => {"image": image, "text": text};
 }
