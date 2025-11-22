@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -18,6 +19,9 @@ abstract class InjectionModule {
   @lazySingleton
   InternetConnectionChecker get connectionChecker =>
       InternetConnectionChecker.createInstance();
+
+  @lazySingleton
+  Dio get dio => Dio();
 
   @lazySingleton
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
