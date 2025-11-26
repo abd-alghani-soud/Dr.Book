@@ -1,7 +1,9 @@
 import 'package:bookly_app/core/constants/assets.dart';
 import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/core/utils/style.dart';
+import 'package:bookly_app/features/home/data/model/book_model.dart';
 import 'package:bookly_app/features/home/presentation/view/widgets/book_rating_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,12 +11,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class BestSellerItemWidgets extends StatelessWidget {
-  const BestSellerItemWidgets({super.key});
+  const BestSellerItemWidgets({super.key, required this.book});
+
+  final BookModel book;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         GoRouter.of(context).push('/bookDetailsPage');
       },
       child: SizedBox(
@@ -23,13 +27,13 @@ class BestSellerItemWidgets extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 2.4 / 4.1,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.sp),
-                  image: DecorationImage(
-                    image: AssetImage(Assets.onboarding1),
-                    fit: BoxFit.fill,
-                  ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14.sp),
+                child: CachedNetworkImage(
+                  imageUrl: book.volumeInfo.imageLinks.thumbnail,
+                  fit: BoxFit.fill,
+                  errorWidget: (context, url, error) =>
+                      Center(child: Icon(size: 60, Icons.error_outline)),
                 ),
               ),
             ),
@@ -41,7 +45,7 @@ class BestSellerItemWidgets extends StatelessWidget {
                   SizedBox(
                     width: 230.w,
                     child: Text(
-                      'Harry Potter and the Goblet of Fire',
+                      book.volumeInfo.title,
                       style: Style.textSize22.copyWith(
                         fontFamily: Strings.kLibreBaskerville,
                       ),
@@ -50,20 +54,24 @@ class BestSellerItemWidgets extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 3),
-                  const Text('J.K.Rowling', style: Style.textSize16),
-                  const SizedBox(height: 3),
-              Row(
-                children: [
                   Text(
-                    r'19.99 $',
-                    style: Style.textSize18.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    book.volumeInfo.authors[0],
+                    style: Style.textSize16,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const Spacer(flex: 1),
-                BookRatingWidget(),
-                ],
-              ),
+                  const SizedBox(height: 3),
+                  Row(
+                    children: [
+                      Text(
+                        r'free 0.0 $',
+                        style: Style.textSize18.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(flex: 1),
+                      BookRatingWidget(),
+                    ],
+                  ),
                 ],
               ),
             ),

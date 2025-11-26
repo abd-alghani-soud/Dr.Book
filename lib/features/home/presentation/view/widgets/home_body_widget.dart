@@ -18,6 +18,7 @@ class HomeBodyWidget extends StatelessWidget {
         bottom: 20.h,
       ),
       child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Column(

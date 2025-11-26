@@ -13,7 +13,8 @@ class CustomResultListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: BestSellerItemWidgets(),
+          child:Text('data'),
+          // BestSellerItemWidgets(),
         );
       },
     );

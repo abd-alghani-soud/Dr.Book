@@ -40,10 +40,12 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getBestSellerBooks() async {
+    print('load best');
     emit(state.copyWith(getBestSellerState: RequestStatus.loading));
     final result = await repo.getBestSellerBooks();
     result.fold(
       (failure) {
+        print('faiiiiiiiiiiiiiiiiiiiiil$failure');
         emit(
           state.copyWith(
             getBestSellerState: RequestStatus.failed,
@@ -52,6 +54,7 @@ class HomeCubit extends Cubit<HomeState> {
         );
       },
       (books) {
+        print('succ$books 12');
         emit(
           state.copyWith(
             getBestSellerState: RequestStatus.success,

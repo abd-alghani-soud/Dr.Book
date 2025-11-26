@@ -37,7 +37,7 @@ class BookRepoImp implements BookRepo {
   Future<Either<Failure, List<BookModel>>> getBestSellerBooks() async {
     try {
       final result = await data.get(
-        endPoints: '/volumes?Filtering=free-ebooks&q=subject:programming',
+        endPoints: 'volumes?Filtering=free-ebooks&q=subject:programming',
       );
       final List<BookModel> book = [];
       for (var e in result['items']) {
