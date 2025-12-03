@@ -5,5 +5,9 @@ import 'package:dartz/dartz.dart';
 abstract class BookRepo {
   Future<Either<Failure, List<BookModel>>> getAllBooks();
 
+  Future<Either<Failure, List<BookModel>>> getSimilarBooks({
+    required String category,
+  });
+
   Future<Either<Failure, List<BookModel>>> getBestSellerBooks();
 }

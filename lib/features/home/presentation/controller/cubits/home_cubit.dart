@@ -64,4 +64,30 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future<void> getSimilarBooks({required String category}) async {
+    print('loadS');
+    emit(state.copyWith(getSimilarBooksState: RequestStatus.loading));
+    final result = await repo.getSimilarBooks(category: category);
+    result.fold(
+      (failure) {
+        print('failedddddddS$failure');
+        emit(
+          state.copyWith(
+            getSimilarBooksState: RequestStatus.failed,
+            errorMessage: failure.message,
+          ),
+        );
+      },
+      (books) {
+        print('succccccccccccccccS$books');
+        emit(
+          state.copyWith(
+            getSimilarBooksState: RequestStatus.success,
+            getSimilarBooks: books,
+          ),
+        );
+      },
+    );
+  }
 }

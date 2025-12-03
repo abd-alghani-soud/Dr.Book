@@ -1,13 +1,12 @@
-import 'package:bookly_app/core/constants/assets.dart';
 import 'package:bookly_app/core/constants/strings.dart';
 import 'package:bookly_app/core/utils/style.dart';
+import 'package:bookly_app/core/widgets/loading_widget.dart';
 import 'package:bookly_app/features/home/data/model/book_model.dart';
 import 'package:bookly_app/features/home/presentation/view/widgets/book_rating_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class BestSellerItemWidgets extends StatelessWidget {
@@ -19,7 +18,7 @@ class BestSellerItemWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push('/bookDetailsPage');
+        GoRouter.of(context).push('/bookDetailsPage',extra: book);
       },
       child: SizedBox(
         height: 135,
@@ -34,6 +33,7 @@ class BestSellerItemWidgets extends StatelessWidget {
                   fit: BoxFit.fill,
                   errorWidget: (context, url, error) =>
                       Center(child: Icon(size: 60, Icons.error_outline)),
+                  placeholder: (context, url) => LoadingWidget(ok: false),
                 ),
               ),
             ),

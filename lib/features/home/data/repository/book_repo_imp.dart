@@ -37,7 +37,28 @@ class BookRepoImp implements BookRepo {
   Future<Either<Failure, List<BookModel>>> getBestSellerBooks() async {
     try {
       final result = await data.get(
-        endPoints: 'volumes?Filtering=free-ebooks&q=subject:programming',
+        endPoints: 'volumes?Filtering=free-ebooks&q=computer science',
+      );
+      final List<BookModel> book = [];
+      for (var e in result['items']) {
+        book.add(BookModel.fromJson(e));
+      }
+      return right(book);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<BookModel>>> getSimilarBooks({required String category}) async {
+    try {
+      final result = await data.get(
+        endPoints:
+            'volumes?Filtering=free-ebooks&Sorting=relevance&q=subject:programming',
       );
       final List<BookModel> book = [];
       for (var e in result['items']) {

@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/widgets/loading_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +13,7 @@ class CardItemListViewHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push('/bookDetailsPage');
+        // GoRouter.of(context).push('/bookDetailsPage');
       },
       child: AspectRatio(
         aspectRatio: 2.6 / 4.2,
@@ -23,7 +24,7 @@ class CardItemListViewHomeWidget extends StatelessWidget {
             fit: BoxFit.fill,
             errorWidget: (context, url, error) =>
                 Center(child: Icon(size: 60, Icons.error_outline)),
-            // placeholder: (context, url) => LoadingWidget(ok: false),
+            placeholder: (context, url) => LoadingWidget(ok: false),
           ),
         ),
       ),
