@@ -9,6 +9,7 @@ class CustomActionsButton extends StatelessWidget {
     this.backgroundColor,
     required this.borderRadius,
     this.fontSize,
+    this.onPressed,
   });
 
   final String text;
@@ -16,6 +17,7 @@ class CustomActionsButton extends StatelessWidget {
   final WidgetStateProperty<Color?>? backgroundColor;
   final BorderRadius borderRadius;
   final double? fontSize;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CustomActionsButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: borderRadius),
           ),
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           text,
           style: Style.textSize18.copyWith(

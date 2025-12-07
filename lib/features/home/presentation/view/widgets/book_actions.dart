@@ -1,8 +1,12 @@
 import 'package:bookly_app/core/widgets/custom_actions_button.dart';
+import 'package:bookly_app/features/home/data/model/book_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookActions extends StatelessWidget {
-  const BookActions({super.key});
+  const BookActions({super.key, required this.book});
+
+  final BookModel book;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,14 @@ class BookActions extends StatelessWidget {
         ),
         Expanded(
           child: CustomActionsButton(
+            onPressed: () async {
+              Uri url = Uri.parse(book.volumeInfo.previewLink);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
+              }
+            },
             backgroundColor: WidgetStatePropertyAll(Color(0xffe57864)),
-            text: 'Free Preview',
+            text: getText(book),
             textColor: Colors.white,
             fontSize: 16,
             borderRadius: BorderRadius.only(
@@ -34,5 +44,13 @@ class BookActions extends StatelessWidget {
       ],
     );
   }
-}
 
+  String getText(BookModel book){
+    if((book.volumeInfo?.previewLink == null)){
+      return 'not Available';
+    }
+    else {
+       return 'Free Preview';
+    }
+  }
+}

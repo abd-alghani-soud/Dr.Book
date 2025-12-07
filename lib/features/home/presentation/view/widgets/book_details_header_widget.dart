@@ -12,6 +12,9 @@ class BookDetailsHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authors = book.volumeInfo.authors ?? [];
+    final author = authors.isNotEmpty ? authors[0] : 'Unknown Author';
+
     return Column(
       children: [
         SizedBox(
@@ -30,7 +33,7 @@ class BookDetailsHeaderWidget extends StatelessWidget {
         Opacity(
           opacity: 0.5,
           child: Text(
-            book.volumeInfo.authors[0],
+            author,
             style: Style.textSize18.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,

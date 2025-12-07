@@ -16,8 +16,7 @@ class BestSellerItemWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = book.volumeInfo.imageLinks?.thumbnail ?? '';
-    final title = book.volumeInfo.title ?? 'No Title';
+
     final authors = book.volumeInfo.authors ?? [];
     final author = authors.isNotEmpty ? authors[0] : 'Unknown Author';
 
@@ -33,9 +32,9 @@ class BestSellerItemWidgets extends StatelessWidget {
               aspectRatio: 2.4 / 4.1,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14.sp),
-                child: imageUrl.isNotEmpty
+                child: (book.volumeInfo.title ?? 'No Title').isNotEmpty
                     ? CachedNetworkImage(
-                  imageUrl: imageUrl,
+                  imageUrl: book.volumeInfo.imageLinks?.thumbnail ?? '',
                   fit: BoxFit.fill,
                   errorWidget: (context, url, error) =>
                   const Center(child: Icon(size: 60, Icons.error_outline)),
@@ -55,7 +54,7 @@ class BestSellerItemWidgets extends StatelessWidget {
                   SizedBox(
                     width: 230.w,
                     child: Text(
-                      title,
+                      book.volumeInfo.title ?? 'No Title',
                       style: Style.textSize22.copyWith(
                         fontFamily: Strings.kLibreBaskerville,
                       ),
