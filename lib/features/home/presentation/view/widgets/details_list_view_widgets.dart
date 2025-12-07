@@ -22,13 +22,12 @@ class DetailsListViewWidgets extends StatelessWidget {
           return SizedBox(
             height: 150.h,
             child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 6,
+              itemCount: state.getSimilarBooks.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CardItemListViewHomeWidget(imageUrl: imageUrl),
+                  child: CardItemListViewHomeWidget(imageUrl: state.getSimilarBooks[index].volumeInfo.imageLinks.thumbnail),
                 );
               },
             ),

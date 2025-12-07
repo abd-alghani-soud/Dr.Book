@@ -16,9 +16,14 @@ class BestSellerItemWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = book.volumeInfo.imageLinks?.thumbnail ?? '';
+    final title = book.volumeInfo.title ?? 'No Title';
+    final authors = book.volumeInfo.authors ?? [];
+    final author = authors.isNotEmpty ? authors[0] : 'Unknown Author';
+
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push('/bookDetailsPage',extra: book);
+        GoRouter.of(context).push('/bookDetailsPage', extra: book);
       },
       child: SizedBox(
         height: 135,
@@ -28,12 +33,17 @@ class BestSellerItemWidgets extends StatelessWidget {
               aspectRatio: 2.4 / 4.1,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14.sp),
-                child: CachedNetworkImage(
-                  imageUrl: book.volumeInfo.imageLinks.thumbnail,
+                child: imageUrl.isNotEmpty
+                    ? CachedNetworkImage(
+                  imageUrl: imageUrl,
                   fit: BoxFit.fill,
                   errorWidget: (context, url, error) =>
-                      Center(child: Icon(size: 60, Icons.error_outline)),
-                  placeholder: (context, url) => LoadingWidget(ok: false),
+                  const Center(child: Icon(size: 60, Icons.error_outline)),
+                  placeholder: (context, url) => const LoadingWidget(ok: false),
+                )
+                    : Container(
+                  color: Colors.grey.shade800,
+                  child: const Icon(Icons.book, color: Colors.white54, size: 50),
                 ),
               ),
             ),
@@ -45,7 +55,7 @@ class BestSellerItemWidgets extends StatelessWidget {
                   SizedBox(
                     width: 230.w,
                     child: Text(
-                      book.volumeInfo.title,
+                      title,
                       style: Style.textSize22.copyWith(
                         fontFamily: Strings.kLibreBaskerville,
                       ),
@@ -55,7 +65,7 @@ class BestSellerItemWidgets extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    book.volumeInfo.authors[0],
+                    author,
                     style: Style.textSize16,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -68,8 +78,8 @@ class BestSellerItemWidgets extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Spacer(flex: 1),
-                      BookRatingWidget(),
+                      const Spacer(),
+                      const BookRatingWidget(),
                     ],
                   ),
                 ],
