@@ -11,10 +11,7 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       /// Splash
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const SplashPage(),
-      ),
+      GoRoute(path: '/', builder: (context, state) => const SplashPage()),
 
       /// Onboarding
       GoRoute(
@@ -23,22 +20,20 @@ abstract class AppRouter {
       ),
 
       /// Home
-      GoRoute(
-        path: '/homePage',
-        builder: (context, state) => const HomePage(),
-      ),
+      GoRoute(path: '/homePage', builder: (context, state) => const HomePage()),
 
       /// Search
       GoRoute(
         path: '/searchPage',
-        builder: (context, state) => const SearchPage(),
+        builder: (context, state) {
+          return SearchPage();
+        },
       ),
 
       /// Book Details
       GoRoute(
         path: '/bookDetailsPage',
         builder: (context, state) {
-          // --- Validation لمنع الكراش ---
           if (state.extra == null || state.extra is! BookModel) {
             return Scaffold(
               appBar: AppBar(),
@@ -50,10 +45,7 @@ abstract class AppRouter {
               ),
             );
           }
-
-          // --- Safe Casting ---
           final book = state.extra as BookModel;
-
           return BookDetailsPage(book: book);
         },
       ),

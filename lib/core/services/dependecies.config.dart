@@ -20,6 +20,10 @@ import '../../features/home/data/repository/book_repo.dart' as _i889;
 import '../../features/home/data/repository/book_repo_imp.dart' as _i323;
 import '../../features/home/presentation/controller/cubits/home_cubit.dart'
     as _i253;
+import '../../features/search/data/repository/search_repo.dart' as _i822;
+import '../../features/search/data/repository/search_repo_imp.dart' as _i936;
+import '../../features/search/presentation/controller/search_cubit.dart'
+    as _i1064;
 import '../cubit/theme_cubit.dart' as _i319;
 import '../network/network_checker.dart' as _i387;
 import 'api_service.dart' as _i738;
@@ -43,6 +47,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i889.BookRepo>(() => _i323.BookRepoImp(gh<_i738.ApiService>()));
     gh.factory<_i387.NetworkChecker>(
       () => _i387.NetworkCheckerImp(gh<_i973.InternetConnectionChecker>()),
+    );
+    gh.factory<_i822.SearchRepo>(
+      () => _i936.SearchRepoImp(gh<_i738.ApiService>()),
+    );
+    gh.lazySingleton<_i1064.SearchCubit>(
+      () => _i1064.SearchCubit(gh<_i822.SearchRepo>()),
     );
     gh.lazySingleton<_i253.HomeCubit>(
       () => _i253.HomeCubit(gh<_i889.BookRepo>()),
