@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-
 class CustomAppBarHomeWidget extends StatelessWidget {
   const CustomAppBarHomeWidget({super.key});
 
@@ -17,7 +16,9 @@ class CustomAppBarHomeWidget extends StatelessWidget {
         Image.asset(Assets.kIcon, height: 55.h),
         Spacer(),
         IconButton(
-          onPressed: () { GoRouter.of(context).push('/searchPage');},
+          onPressed: () {
+            GoRouter.of(context).push('/searchPage');
+          },
           icon: Icon(FontAwesomeIcons.magnifyingGlass),
         ),
       ],
