@@ -54,7 +54,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   void _finishOnboarding() {
-    GoRouter.of(context).push('/homePage');
+    GoRouter.of(context).pushReplacement('/homePage');
   }
 
   @override
